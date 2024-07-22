@@ -1,0 +1,28 @@
+1. start the minikube
+minikube start
+
+2. allow kubernetes to read our local docker repository. For that use below command.
+eval $(minikube docker-env)
+
+3. build the docker image of the spring boot application.
+docker build -f Dockefile -t springboot-k8s-demo:latest .
+
+4. execute the k8s-deployment.yaml file
+kubectl apply -f k8s-deployment.yaml
+
+5. execute the k8s-service.yaml file
+kubectl apply -f k8s-service.yaml
+
+/////////////////////////////////
+
+1. if the docker file is already created and deployment completed
+Identify the server port by "kubectl get services" command  -> 30919
+
+2. Identify the server IP by "kubectl get nodes -o wide" command  -> 192.168.49.2
+or using "minikube ip" command
+
+3. call the endpoint as follows
+http://192.168.49.2:30919/api/v1/message
+
+
+

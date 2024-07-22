@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: spring-boot-k8s
-          image: 192.168.8.106:5000/springboot-k8s-example:1.0 # Name of the image that is going to fetch from docker repo
+          image: springboot-k8s-demo:latest # Name of the image that is going to fetch from docker repo
           imagePullPolicy: IfNotPresent # If we do not add this property kubernetes will look first in dockerhub. But when we add this it first look in local and then docker hub
           ports:
             - containerPort: 8081 # The port that the container is running on the cluster

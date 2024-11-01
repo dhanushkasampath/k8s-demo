@@ -2,10 +2,10 @@
 minikube start
 
 2. allow kubernetes to read our local docker repository. For that use below command.
-eval $(minikube docker-env)
+eval $(minikube docker-env)   <- once we enter "docker images" after this command we ger some more
 
 3. build the docker image of the spring boot application.
-docker build -f Dockefile -t springboot-k8s-demo:latest .
+docker build -f Dockerfile -t springboot-k8s-demo:latest .
 
 4. execute the k8s-deployment.yaml file
 kubectl apply -f k8s-deployment.yaml
@@ -18,11 +18,26 @@ kubectl apply -f k8s-service.yaml
 1. if the docker file is already created and deployment completed
 Identify the server port by "kubectl get services" command  -> 30919
 
-2. Identify the server IP by "kubectl get nodes -o wide" command  -> 192.168.49.2
+2. Identify the server IP by "kubectl get nodes -o wide" command  -> 192.168.49.2  (INTERNAL-IP)
 or using "minikube ip" command
 
 3. call the endpoint as follows
 http://192.168.49.2:30919/api/v1/message
 
+Above endpoint start to function as soon as we start the minikube using "minikube start" command.
+Also when we stop the minikube using "minikube stop", this service will stop
 
+
+Let's say we make a new change and now we need to push it to kubernetes
+
+1. after the changes run "mvn clean install" <- This will remove the jar file in target directory and add a new one with latest changes
+2. re-build the docker image. -> docker build -f Dockerfile -t springboot-k8s-demo:latest .
+if there is any change we can see in "docker images" response the created time has updated to now
+
+3. make sure minikube is running
+4. execute the k8s-deployment.yaml file
+kubectl apply -f k8s-deployment.yaml
+
+5. execute the k8s-service.yaml file
+kubectl apply -f k8s-service.yaml
 

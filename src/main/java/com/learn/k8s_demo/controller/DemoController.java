@@ -14,4 +14,9 @@ public class DemoController {
     public ResponseEntity<String> getMessage(){
         return new ResponseEntity<>("Hello From Rest Service....", HttpStatus.OK);
     }
+
+    @GetMapping("/greeting")
+    public ResponseEntity<String> getGreeting(){
+        return new ResponseEntity<>("New Greetings from Sri Lanka !!!", HttpStatus.OK);
+    }
 }
